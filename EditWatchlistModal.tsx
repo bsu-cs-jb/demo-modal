@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BigButton, FlexFill, LabelText, TitleText } from "./Shared";
 import sharedStyles from "./styles";
 import { Modal, SafeAreaView, View, TextInput, StyleSheet } from "react-native";
+import { useScale } from "./ScaleContext";
 
 interface EditWatchlistModalProps {
   visible: boolean;
@@ -18,6 +19,7 @@ export function EditWatchlistModal({
   onSave,
   onCancel,
 }: EditWatchlistModalProps) {
+  const { scaleStyle } = useScale();
   const [newName, setNewName] = useState(name ?? "");
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   useEffect(() => {
@@ -70,8 +72,8 @@ export function EditWatchlistModal({
 
   return (
     <Modal visible={visible} transparent={true} animationType="slide">
-      <SafeAreaView style={sharedStyles.modalTop}>
-        <View style={sharedStyles.modalContainer}>
+      <SafeAreaView style={scaleStyle(sharedStyles.modalTop)}>
+        <View style={scaleStyle(sharedStyles.modalContainer)}>
           <TitleText>Add Watchlist</TitleText>
           {errorMessage && (
             <LabelText style={styles.errorText}>{errorMessage}</LabelText>
@@ -83,7 +85,7 @@ export function EditWatchlistModal({
               </View>
               <View style={sharedStyles.formColumn}>
                 <TextInput
-                  style={sharedStyles.input}
+                  style={scaleStyle(sharedStyles.input)}
                   value={newName}
                   onChangeText={handleNameChange}
                   autoFocus={true}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import sharedStyles from "./styles";
 import { EditWatchlistModal } from "./EditWatchlistModal";
 import { genid, log, range } from "./utils";
+import { useScale } from "./ScaleContext";
 
 interface Entry {
   id: string;
@@ -31,6 +32,7 @@ function EntryView({ entry, onDelete, onEdit, onView }: EntryViewProps) {
 }
 
 export default function ModalDemo() {
+  const { scaleStyle } = useScale();
   const [entries, setEntries] = useState([
     {
       id: genid(),
@@ -93,7 +95,7 @@ export default function ModalDemo() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={scaleStyle(styles.container)}>
       <EditWatchlistModal
         visible={modalVisible}
         name={editName}
